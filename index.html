@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Record — not published yet</title>
+<meta name="theme-color" content="#0b0d18">
+<meta name="color-scheme" content="dark">
+<style>
+  :root{
+    --bg:#0f1220; --bg-top:#0b0d18; --card:#171b2e; --card2:#1d2238;
+    --text:#e9ecf5; --muted:#98a0bd; --accent:#5ec2ff; --warn:#ffd166;
+    --safe-top:env(safe-area-inset-top, 0px);
+    --safe-bottom:env(safe-area-inset-bottom, 0px);
+  }
+  *{box-sizing:border-box;}
+  html{background:var(--bg-top); color-scheme:dark; -webkit-text-size-adjust:100%;}
+  body{
+    margin:0; padding:calc(var(--safe-top) + 40px) 18px calc(var(--safe-bottom) + 48px);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); background-image:linear-gradient(180deg,var(--bg-top) 0,var(--bg) 300px);
+    background-repeat:no-repeat; color:var(--text); line-height:1.55;
+  }
+  .wrap{max-width:620px; margin:0 auto;}
+  h1{font-size:1.5rem; margin:0 0 6px; letter-spacing:-0.02em;}
+  .sub{color:var(--muted); margin:0 0 26px; font-size:0.95rem;}
+  .status{
+    background:rgba(255,209,102,0.1); border:1px solid rgba(255,209,102,0.28);
+    color:var(--warn); border-radius:14px; padding:14px 16px; font-size:0.9rem; font-weight:600;
+    margin:0 0 22px;
+  }
+  .card{
+    background:var(--card); border:1px solid #232945; border-radius:16px;
+    padding:16px 18px; margin:0 0 14px;
+  }
+  .card h2{font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin:0 0 10px;}
+  ol{margin:0; padding-left:1.25em;}
+  li{margin-bottom:10px; font-size:0.92rem;}
+  li:last-child{margin-bottom:0;}
+  code{
+    background:rgba(255,255,255,0.07); border-radius:6px; padding:2px 6px;
+    font-size:0.86em; overflow-wrap:anywhere;
+  }
+  a{color:var(--accent); overflow-wrap:anywhere;}
+  footer{color:var(--muted); font-size:0.8rem; margin-top:26px; text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>The Record</h1>
+  <p class="sub">Primary-source political reader. Issues stay unbundled.</p>
+
+  <div class="status">This address is live and ready, but the app has not published here yet.</div>
+
+  <div class="card">
+    <h2>What happened</h2>
+    <p style="margin:0; font-size:0.92rem;">The Political News App automation has built this app several times. Each run built it
+    inside its own temporary machine and finished without pushing anywhere, so nothing survived the run. This repository
+    was created but stayed empty, which is why there was never a link to open.</p>
+  </div>
+
+  <div class="card">
+    <h2>To get the real app here</h2>
+    <ol>
+      <li>Add a Cursor secret named <code>GITHUB_TOKEN</code> (a GitHub token with Contents and Pages write access) in
+      <a href="https://cursor.com/dashboard/cloud-agents">Cloud Agent settings</a>. A token pasted into chat will not work —
+      runs are expected to refuse it, and it only lasts for that one conversation.</li>
+      <li>Add a publishing step to the
+      <a href="https://cursor.com/automations/22d674dd-afe9-11f1-bf4b-42ffb4d10ea7">Political News App automation</a> prompt:
+      build the app, then commit and push the built output to <code>Taylor-Player-News/Political-News</code> on
+      <code>main</code>, which is already serving this page.</li>
+      <li>Run the automation. It will overwrite this page with the app.</li>
+    </ol>
+  </div>
+
+  <footer>Pages is already enabled on this repository, so a push to <code>main</code> goes live in under a minute.</footer>
+</div>
+</body>
+</html>

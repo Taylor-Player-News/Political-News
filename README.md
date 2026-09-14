@@ -1,32 +1,41 @@
-# Political-News
+# The Record
 
-Permanent GitHub Pages home for **The Record**, the primary-source political news app built by the
+A primary-source political reader, published to GitHub Pages by the
 [Political News App automation](https://cursor.com/automations/22d674dd-afe9-11f1-bf4b-42ffb4d10ea7).
 
-**Live URL:** https://taylor-player-news.github.io/Political-News/
+**Live:** https://taylor-player-news.github.io/Political-News/
 
-## Current state
+## Editorial rules
 
-A placeholder page. The automation has built the app several times but each run built it inside a temporary
-machine and never pushed, so nothing was published. This repository exists with Pages enabled so a run only
-has to push.
+- Every item links the document it came from.
+- Claims are tagged `Primary document` or `Reported`. Reporting that goes beyond what a document
+  states is labeled and attributed rather than blended into the summary.
+- Vote tallies come from the Clerk of the House and the Senate roll call record, not from summaries
+  of them.
+- Court orders are described by what they actually decide, which is frequently jurisdiction rather
+  than the merits.
+- No left–right scoring, no bundling of unrelated issues.
+- Open questions stay open, each with the specific event that would resolve it.
+- No AI-generated imagery. This edition uses no imagery at all.
 
-## How a run should publish
+## Publishing a new edition
 
-Push the built static output to the root of `main`:
+The site is plain static files at the repository root, served from `main`.
 
 ```bash
-# from the built app directory (e.g. dist/)
-git init -b main
-git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/Taylor-Player-News/Political-News.git"
+git clone "https://x-access-token:${GITHUB_TOKEN}@github.com/Taylor-Player-News/Political-News.git"
+cd Political-News
+# replace index.html (and any assets) with the new edition
 git add -A
 git commit -m "The Record — $(date -u +%Y-%m-%d)"
-git push -f origin main
+git push origin main
 ```
 
 Requirements:
 
-- A `GITHUB_TOKEN` Cursor secret with Contents and Pages write access. Tokens pasted into chat are refused by design.
-- Relative asset paths, since the site is served from `/Political-News/` rather than the domain root.
-  For Vite, set `base: './'`.
-- No `CNAME` file, which would break Pages on this repo.
+- A `GITHUB_TOKEN` Cursor secret with Contents and Pages write access. Tokens pasted into chat are
+  refused by design and only last one conversation.
+- Relative asset paths, since the site is served from `/Political-News/` and not the domain root.
+  For a Vite build, set `base: './'` and publish the contents of `dist/` at the repository root.
+- No `CNAME` file, which would break Pages on this repository.
+- Bump `CACHE_NAME` in `sw.js` when assets change.

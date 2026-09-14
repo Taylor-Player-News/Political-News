@@ -3,77 +3,519 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>The Record — not published yet</title>
-<meta name="theme-color" content="#0b0d18">
+<title>The Record — Monday, Sep 14, 2026</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0c0f14">
 <meta name="color-scheme" content="dark">
+<meta name="description" content="The Record — a primary-source political reader. Every claim links the document it came from. Issues stay unbundled.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="The Record">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
   :root{
-    --bg:#0f1220; --bg-top:#0b0d18; --card:#171b2e; --card2:#1d2238;
-    --text:#e9ecf5; --muted:#98a0bd; --accent:#5ec2ff; --warn:#ffd166;
+    --bg:#11151c; --bg-top:#0c0f14; --card:#181d26; --card2:#1e242f;
+    --text:#eef1f6; --muted:#9aa4b5; --line:#2a3140;
+    --primary:#7fd1c1; --reported:#e8b64c; --link:#8ab8ff;
     --safe-top:env(safe-area-inset-top, 0px);
     --safe-bottom:env(safe-area-inset-bottom, 0px);
+    --safe-left:env(safe-area-inset-left, 0px);
+    --safe-right:env(safe-area-inset-right, 0px);
+    --bar-height:46px;
+    --gutter:17px;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box;}
-  html{background:var(--bg-top); color-scheme:dark; -webkit-text-size-adjust:100%;}
+  html{
+    background:var(--bg-top); color-scheme:dark; -webkit-text-size-adjust:100%;
+    scroll-padding-top:calc(var(--safe-top) + var(--bar-height) + 10px);
+  }
   body{
-    margin:0; padding:calc(var(--safe-top) + 40px) 18px calc(var(--safe-bottom) + 48px);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:var(--bg); background-image:linear-gradient(180deg,var(--bg-top) 0,var(--bg) 300px);
-    background-repeat:no-repeat; color:var(--text); line-height:1.55;
+    margin:0; font-family:var(--sans); color:var(--text); line-height:1.55;
+    background:var(--bg);
+    background-image:linear-gradient(180deg,var(--bg-top) 0,var(--bg) 300px,var(--bg) calc(100% - 240px),var(--bg-top) 100%);
+    background-repeat:no-repeat;
+    overflow-wrap:break-word;
+    -webkit-tap-highlight-color:rgba(138,184,255,0.18);
   }
-  .wrap{max-width:620px; margin:0 auto;}
-  h1{font-size:1.5rem; margin:0 0 6px; letter-spacing:-0.02em;}
-  .sub{color:var(--muted); margin:0 0 26px; font-size:0.95rem;}
-  .status{
-    background:rgba(255,209,102,0.1); border:1px solid rgba(255,209,102,0.28);
-    color:var(--warn); border-radius:14px; padding:14px 16px; font-size:0.9rem; font-weight:600;
-    margin:0 0 22px;
+
+  .topbar{
+    position:fixed; inset:0 0 auto 0; z-index:20;
+    padding-top:var(--safe-top);
+    padding-left:calc(var(--gutter) + var(--safe-left));
+    padding-right:calc(var(--gutter) + var(--safe-right));
+    background:rgba(12,15,20,0.84);
+    backdrop-filter:saturate(150%) blur(14px);
+    -webkit-backdrop-filter:saturate(150%) blur(14px);
+    border-bottom:1px solid rgba(255,255,255,0.07);
   }
-  .card{
-    background:var(--card); border:1px solid #232945; border-radius:16px;
-    padding:16px 18px; margin:0 0 14px;
+  .topbar-inner{
+    max-width:680px; margin:0 auto; height:var(--bar-height);
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
   }
-  .card h2{font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin:0 0 10px;}
-  ol{margin:0; padding-left:1.25em;}
-  li{margin-bottom:10px; font-size:0.92rem;}
-  li:last-child{margin-bottom:0;}
-  code{
-    background:rgba(255,255,255,0.07); border-radius:6px; padding:2px 6px;
-    font-size:0.86em; overflow-wrap:anywhere;
+  .topbar .mark{font-family:var(--serif); font-size:1.06rem; font-weight:600; letter-spacing:0.01em;}
+  .topbar .stamp{
+    flex:0 0 auto; font-size:0.72rem; font-weight:600; color:var(--muted);
+    border:1px solid var(--line); border-radius:999px; padding:4px 10px; white-space:nowrap;
   }
-  a{color:var(--accent); overflow-wrap:anywhere;}
-  footer{color:var(--muted); font-size:0.8rem; margin-top:26px; text-align:center;}
+
+  .wrap{
+    max-width:680px; margin:0 auto;
+    padding-top:calc(var(--safe-top) + var(--bar-height));
+    padding-left:calc(var(--gutter) + var(--safe-left));
+    padding-right:calc(var(--gutter) + var(--safe-right));
+    padding-bottom:calc(40px + var(--safe-bottom));
+  }
+
+  header{padding:30px 0 6px; text-align:center; border-bottom:1px solid var(--line);}
+  header h1{
+    font-family:var(--serif); font-weight:600;
+    font-size:clamp(2rem,10vw,2.9rem); margin:0; letter-spacing:0.01em; line-height:1.05;
+  }
+  header .tagline{color:var(--muted); font-size:0.9rem; margin:10px 0 0;}
+  header .dateline{
+    font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em;
+    color:var(--muted); margin:16px 0 18px;
+  }
+
+  .method{
+    background:var(--card2); border:1px solid var(--line); border-radius:12px;
+    padding:14px 16px; margin:22px 0 0; font-size:0.86rem; color:var(--muted);
+  }
+  .method b{color:var(--text);}
+  .method .keys{display:flex; flex-wrap:wrap; gap:8px; margin-top:11px;}
+
+  .tag{
+    display:inline-block; font-size:0.63rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:0.08em; padding:4px 8px; border-radius:5px; white-space:nowrap;
+  }
+  .tag-primary{background:rgba(127,209,193,0.13); color:var(--primary);}
+  .tag-reported{background:rgba(232,182,76,0.13); color:var(--reported);}
+
+  .section-title{
+    font-family:var(--serif); font-size:1.16rem; font-weight:600;
+    margin:38px 0 4px; padding-bottom:8px; border-bottom:1px solid var(--line);
+  }
+  .section-note{color:var(--muted); font-size:0.82rem; margin:8px 0 16px;}
+
+  .item{
+    background:var(--card); border:1px solid #232a36; border-radius:14px;
+    padding:16px 17px; margin-bottom:14px;
+  }
+  .kicker{
+    font-size:0.68rem; text-transform:uppercase; letter-spacing:0.11em;
+    color:var(--muted); margin:0 0 8px;
+  }
+  .item h3{
+    font-family:var(--serif); font-weight:600; font-size:1.18rem; line-height:1.28;
+    margin:0 0 10px; letter-spacing:0.005em;
+  }
+  .item p{margin:0 0 10px; font-size:0.94rem;}
+  .item p:last-of-type{margin-bottom:0;}
+
+  .facts{
+    list-style:none; margin:12px 0 0; padding:12px 0 0; border-top:1px solid rgba(255,255,255,0.07);
+  }
+  .facts li{
+    display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;
+    font-size:0.85rem; padding:5px 0; color:var(--text);
+  }
+  .facts .k{
+    flex:0 0 auto; min-width:118px; color:var(--muted);
+    font-size:0.72rem; text-transform:uppercase; letter-spacing:0.07em;
+  }
+  .facts .v{flex:1 1 140px; min-width:0;}
+
+  .sources{
+    margin:13px 0 0; padding-top:11px; border-top:1px solid rgba(255,255,255,0.07);
+    font-size:0.8rem; color:var(--muted); display:flex; flex-wrap:wrap; gap:6px 14px; align-items:center;
+  }
+  .sources .lbl{
+    font-size:0.66rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);
+    width:100%;
+  }
+  a{color:var(--link);}
+  .sources a{text-decoration:none; border-bottom:1px solid rgba(138,184,255,0.35); padding-bottom:1px;}
+
+  .dates{background:var(--card2); border:1px solid var(--line); border-radius:12px; padding:3px 16px;}
+  .dates .row{
+    display:flex; flex-wrap:wrap; gap:2px 12px; align-items:baseline;
+    padding:12px 0; border-bottom:1px solid #262d3a; font-size:0.88rem;
+  }
+  .dates .row:last-child{border-bottom:none;}
+  .dates .when{flex:0 0 auto; font-weight:600; color:var(--primary); font-size:0.8rem; min-width:96px;}
+  .dates .what{flex:1 1 200px; min-width:0;}
+
+  .open{border-left:2px solid var(--reported);}
+  .open .test{
+    margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.07);
+    font-size:0.84rem; color:var(--muted);
+  }
+  .open .test b{color:var(--text); font-weight:600;}
+
+  footer{
+    margin-top:38px; padding-top:20px; border-top:1px solid var(--line);
+    color:var(--muted); font-size:0.79rem; line-height:1.65;
+  }
+  footer p{margin:0 0 10px;}
+
+  @media (min-width:620px){
+    :root{--gutter:26px;}
+    .item h3{font-size:1.26rem;}
+  }
+  @media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth;} }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>The Record</h1>
-  <p class="sub">Primary-source political reader. Issues stay unbundled.</p>
 
-  <div class="status">This address is live and ready, but the app has not published here yet.</div>
-
-  <div class="card">
-    <h2>What happened</h2>
-    <p style="margin:0; font-size:0.92rem;">The Political News App automation has built this app several times. Each run built it
-    inside its own temporary machine and finished without pushing anywhere, so nothing survived the run. This repository
-    was created but stayed empty, which is why there was never a link to open.</p>
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="mark">The Record</span>
+    <span class="stamp">Sep 14, 2026</span>
   </div>
-
-  <div class="card">
-    <h2>To get the real app here</h2>
-    <ol>
-      <li>Add a Cursor secret named <code>GITHUB_TOKEN</code> (a GitHub token with Contents and Pages write access) in
-      <a href="https://cursor.com/dashboard/cloud-agents">Cloud Agent settings</a>. A token pasted into chat will not work —
-      runs are expected to refuse it, and it only lasts for that one conversation.</li>
-      <li>Add a publishing step to the
-      <a href="https://cursor.com/automations/22d674dd-afe9-11f1-bf4b-42ffb4d10ea7">Political News App automation</a> prompt:
-      build the app, then commit and push the built output to <code>Taylor-Player-News/Political-News</code> on
-      <code>main</code>, which is already serving this page.</li>
-      <li>Run the automation. It will overwrite this page with the app.</li>
-    </ol>
-  </div>
-
-  <footer>Pages is already enabled on this repository, so a push to <code>main</code> goes live in under a minute.</footer>
 </div>
+
+<div class="wrap">
+  <header>
+    <h1>The Record</h1>
+    <p class="tagline">Primary sources, unbundled.</p>
+    <p class="dateline">Monday, September 14, 2026</p>
+  </header>
+
+  <div class="method">
+    <b>How to read this.</b> Every item below links the document it came from, and the tag tells you what
+    kind of claim it is. Where reporting goes beyond what a document states, it is labeled and attributed
+    rather than blended in. Nothing here is scored on a left–right axis, and there are no illustrations —
+    only the record.
+    <div class="keys">
+      <span class="tag tag-primary">Primary document</span>
+      <span class="tag tag-reported">Reported</span>
+    </div>
+  </div>
+
+  <h2 class="section-title">The record today</h2>
+  <p class="section-note">Federal actions with a document behind them, most consequential first.</p>
+
+  <div class="item">
+    <p class="kicker">Immigration · Rulemaking</p>
+    <h3>Student and exchange visas stop being open-ended tomorrow</h3>
+    <p>A Department of Homeland Security final rule takes effect September 15, changing admission in the
+      F (academic student), J (exchange visitor) and I (foreign media) classifications from
+      &ldquo;duration of status&rdquo; to a fixed time period, and adding an extension-of-stay procedure.
+      The rule amends 8 CFR parts 214, 248 and 274a.</p>
+    <p>DHS classified it as a major rule subject to congressional review, and wrote into the rule that if
+      the effective date changes at the conclusion of that review, it will publish a further notice setting
+      the actual date or terminating the rule. The stated purpose is to let DHS evaluate whether these
+      nonimmigrants are maintaining status while in the United States.</p>
+    <ul class="facts">
+      <li><span class="k">Effective</span><span class="v">September 15, 2026</span></li>
+      <li><span class="k">Docket</span><span class="v">ICEB&ndash;2025&ndash;0001, RIN 1653&ndash;AA95</span></li>
+      <li><span class="k">Status</span><span class="v">Major rule, subject to congressional review</span></li>
+    </ul>
+    <div class="sources">
+      <span class="lbl">Source</span>
+      <span class="tag tag-primary">Primary document</span>
+      <a href="https://www.govinfo.gov/content/pkg/FR-2026-07-17/pdf/2026-14439.pdf">Final rule, Federal Register via GovInfo</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <p class="kicker">Appropriations · Public law</p>
+    <h3>Agencies are funded to December 11 under a bill that started life as an Africa trade measure</h3>
+    <p>H.R. 6500 became Public Law 119&ndash;103 on September 2, titled the Continuing Appropriations and
+      Extensions Act, 2027. It provides fiscal year 2027 appropriations through December 11, 2026 and
+      extends authorities for a range of programs including surface transportation and veterans programs.</p>
+    <p>The vehicle is worth noting: the Senate and House clerks still carry H.R. 6500 under its original
+      subject, extending duty-free treatment for certain African imports under the African Growth and
+      Opportunity Act and extending customs user fees. The continuing resolution was attached to that bill
+      rather than moving on its own.</p>
+    <ul class="facts">
+      <li><span class="k">House</span><span class="v">Roll call 286, Sept 1 &mdash; 370&ndash;48, 14 not voting (R 193&ndash;19, D 176&ndash;29, I 1&ndash;0), on a motion to suspend the rules and concur in the Senate amendments</span></li>
+      <li><span class="k">Senate</span><span class="v">Roll call 228, Aug 8 &mdash; 90&ndash;6, 1 present, 3 not voting</span></li>
+      <li><span class="k">Senate nays</span><span class="v">Cassidy, Kaine, Markey, Paul, Sanders, Warren</span></li>
+      <li><span class="k">Citation</span><span class="v">140 Stat. 987</span></li>
+    </ul>
+    <div class="sources">
+      <span class="lbl">Sources</span>
+      <span class="tag tag-primary">Primary document</span>
+      <a href="https://www.archives.gov/federal-register/laws/current.html">Public law list, National Archives</a>
+      <a href="https://clerk.house.gov/Votes/2026286">House roll call 286, Clerk of the House</a>
+      <a href="https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00228.htm">Senate roll call 228</a>
+      <a href="https://www.whitehouse.gov/briefings-statements/2026/09/congressional-bill-h-r-6500-signed-into-law/">Signing statement, White House</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <p class="kicker">Appropriations · What the reporting adds</p>
+    <h3>What the funding law reportedly carries beyond the topline</h3>
+    <p>The law text is the authority on its contents, but the provisions drawing attention in coverage are
+      a temporary block on an Office of Management and Budget proposal to route federal grant decisions
+      through political appointees, a bar on shifting funds from other programs to Border Patrol, and
+      deviations from current spending for WIC, disaster relief and wildland fire, with the Senate adding
+      others including 2028 Olympic preparations and housing assistance.</p>
+    <p>Coverage also reports a two-year extension of economic pacts with sub-Saharan African countries and
+      with Haiti, and that the grantmaking block runs only until December 11 &mdash; the same date the money
+      runs out. Treat each of these as reported until you read them in the enrolled text.</p>
+    <div class="sources">
+      <span class="lbl">Sources</span>
+      <span class="tag tag-reported">Reported</span>
+      <a href="https://rollcall.com/2026/09/01/funding-extension-clears-house-avoiding-shutdown-threat/">Roll Call, Sept 1</a>
+      <a href="https://www.defenseone.com/policy/2026/09/shutdown-threat-lifted-house-passes-stopgap-spending-bill/415757/">Defense One, Sept 1</a>
+      <a href="https://www.congress.gov/bill/119th-congress/house-bill/6500">Bill text and actions, Congress.gov</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <p class="kicker">Courts · Redistricting</p>
+    <h3>The Supreme Court stayed a federal order in the Missouri map referendum fight, six days after declining to stay the state ruling</h3>
+    <p>On September 10 the Court granted an application for stay in People Not Politicians v. Onder,
+      No. 26A326, staying a September 8 order of the Eastern District of Missouri pending appeal in the
+      Eighth Circuit and disposition of a certiorari petition. If certiorari is denied the stay ends
+      automatically.</p>
+    <p>Read the sequence carefully, because the two rulings point in different directions. Per the stay
+      application, the Missouri Supreme Court held on September 3 in <em>von Glahn</em> that the state
+      constitution allows a referendum on the legislature&rsquo;s congressional map, said HB 1
+      &ldquo;is not the law and has never been the law,&rdquo; and enjoined use of that map in November.
+      The Secretary of State sought a stay of that ruling and the Supreme Court denied it on September 8.
+      What the Court granted on September 10 was a stay of a separate federal district court order.</p>
+    <ul class="facts">
+      <li><span class="k">Order</span><span class="v">Stay granted, Sept 10, 2026</span></li>
+      <li><span class="k">Court below</span><span class="v">E.D. Mo., No. 4:26&ndash;cv&ndash;1424</span></li>
+      <li><span class="k">Referred by</span><span class="v">Justice Kavanaugh, to the full Court</span></li>
+    </ul>
+    <div class="sources">
+      <span class="lbl">Sources</span>
+      <span class="tag tag-primary">Primary document</span>
+      <a href="https://www.supremecourt.gov/orders/courtorders/091026zr_b07d.pdf">Order list, Sept 10, supremecourt.gov</a>
+      <a href="https://www.supremecourt.gov/DocketPDF/26/26A326/423669/20260909165819594_People%20Not%20Politicians%20v.%20Onder%20Emergency%20Stay%20Application.pdf">Stay application (a party filing, not the Court)</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <p class="kicker">Courts · Campaign finance</p>
+    <h3>Party committees keep the discount broadcast rate for now, on a jurisdictional ruling rather than the merits</h3>
+    <p>In National Republican Congressional Committee v. Brown, No. 26A274, the Court on September 4
+      recalled and stayed the Fourth Circuit&rsquo;s mandate in No. 26&ndash;1785. The Fourth Circuit had
+      set aside an FCC public notice and, in the process, held that it had jurisdiction while the
+      candidates&rsquo; application for review was still pending at the Commission.</p>
+    <p>The Court&rsquo;s per curiam reasoning is statutory: under 47 U.S.C. §155(c)(7), filing an
+      application for review is &ldquo;a condition precedent to judicial review,&rdquo; so the challengers
+      had to wait for the Commission to resolve it by order. The underlying question &mdash; whether party
+      and joint fundraising committees may pay the lowest unit charge that candidates get for political ads
+      &mdash; is unresolved. Justice Jackson dissented.</p>
+    <ul class="facts">
+      <li><span class="k">Order</span><span class="v">Stay granted, Sept 4, 2026, per curiam</span></li>
+      <li><span class="k">Dissent</span><span class="v">Justice Jackson</span></li>
+      <li><span class="k">Decided on</span><span class="v">Jurisdiction, not the rate question</span></li>
+    </ul>
+    <div class="sources">
+      <span class="lbl">Sources</span>
+      <span class="tag tag-primary">Primary document</span>
+      <a href="https://www.supremecourt.gov/opinions/25pdf/26a274_l537.pdf">Opinion on application for stay</a>
+      <a href="https://www.supremecourt.gov/docket/docketfiles/html/public/26A274.html">Docket 26A274</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <p class="kicker">Courts · Immigration</p>
+    <h3>An October detention case vanished from the argument calendar after a state pardon</h3>
+    <p>Genalo v. Black, No. 25&ndash;886, was dismissed September 11 under Rule 46 on a joint stipulation by
+      all parties. The case asked at what point noncitizens in prolonged detention are entitled to a bond
+      hearing, and what the government must show to keep holding them. It had been set for argument in
+      October.</p>
+    <p>According to the Solicitor General&rsquo;s letter to the Clerk, the Governor of New York granted the
+      remaining respondent a full and unconditional pardon three calendar days before his merits brief was
+      due, which removed the conviction underlying mandatory detention and mooted the habeas case. The
+      letter states the government intends to look for alternative vehicles to get the same questions
+      decided during October Term 2026.</p>
+    <ul class="facts">
+      <li><span class="k">Disposition</span><span class="v">Dismissed Sept 11, 2026, Rule 46</span></li>
+      <li><span class="k">Was set for</span><span class="v">October 2026 argument</span></li>
+      <li><span class="k">Question</span><span class="v">Unresolved; no ruling on the merits</span></li>
+    </ul>
+    <div class="sources">
+      <span class="lbl">Sources</span>
+      <span class="tag tag-primary">Primary document</span>
+      <a href="https://www.supremecourt.gov/docket/docketfiles/html/public/25-886.html">Docket 25&ndash;886</a>
+      <a href="https://www.supremecourt.gov/DocketPDF/25/25-886/423952/20260911150332786_25-886%20-%20Letter%20from%20Petitioners%20Regarding%20Forthcoming%20Dismissal.pdf">Solicitor General&rsquo;s letter</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <p class="kicker">Courts · Elections</p>
+    <h3>Standing, not legality: the election order stay from late August</h3>
+    <p>Worth keeping alongside the newer election cases. In Trump v. California, No. 26A124, decided
+      August 24, the Court stayed a District of Massachusetts injunction against implementing an executive
+      order on election integrity. The per curiam opinion rests on jurisdiction: because the order itself
+      does not harm the states, they lacked standing, so the district court could not bar the government
+      from trying to implement it.</p>
+    <p>The opinion is explicit that this is not a ruling that implementation will be lawful &mdash; in its
+      own words, &ldquo;time will tell.&rdquo; A companion application, No. 26A139, was denied as moot.</p>
+    <div class="sources">
+      <span class="lbl">Source</span>
+      <span class="tag tag-primary">Primary document</span>
+      <a href="https://www.supremecourt.gov/opinions/25pdf/26a124_hgci.pdf">Per curiam opinion, supremecourt.gov</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <p class="kicker">Oversight · Public law</p>
+    <h3>Four bills signed September 11, including a spending-disclosure expansion</h3>
+    <p>The White House recorded four bills signed on September 11. The one with the widest reach is
+      H.R. 2069, the Stop Secret Spending Act of 2025, which extends federal spending transparency
+      requirements to other transaction agreements &mdash; a contracting instrument that sits outside normal
+      procurement rules &mdash; and modifies the related standards, oversight and reporting.</p>
+    <p>The others: H.R. 5366, the Doug LaMalfa Federal Disaster Tax Relief Certainty Act, extending and
+      codifying the deduction for qualified disaster-related personal casualty losses and the income
+      exclusion for qualified wildfire relief payments; H.R. 2196, extending the National Emergency Medical
+      Services Memorial Foundation&rsquo;s authority to build a commemorative work in the District of
+      Columbia; and H.R. 1276, removing deed restrictions from a 3.62-acre parcel conveyed to Paducah,
+      Kentucky.</p>
+    <div class="sources">
+      <span class="lbl">Source</span>
+      <span class="tag tag-primary">Primary document</span>
+      <a href="https://www.whitehouse.gov/briefings-statements/2026/09/congressional-bills-h-r-1276-h-r-2069-h-r-2196-and-h-r-5366-signed-into-law/">Bills signed into law, White House</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <p class="kicker">Energy · Rulemaking</p>
+    <h3>Federal buildings get another six months before clean-energy standards bite</h3>
+    <p>On September 2 the Department of Energy further stayed the compliance date for the fossil-fuel
+      reduction requirements covering new and majorly renovated federal buildings, in 10 CFR part 433
+      subpart B and part 435 subpart B, pushing it to March 1, 2027. Those provisions were published in
+      May 2024 and have now been stayed three times, previously to September 1, 2026.</p>
+    <p>DOE says its review of the rule and its implementation guidance is still ongoing, and states plainly
+      that agencies are not required to comply with the standards while the compliance date is stayed.</p>
+    <div class="sources">
+      <span class="lbl">Source</span>
+      <span class="tag tag-primary">Primary document</span>
+      <a href="https://www.federalregister.gov/documents/2026/09/02/2026-17979/repeal-of-fossil-fuel-restrictions-for-new-federal-buildings-and-major-renovations-of-federal">Federal Register, Sept 2</a>
+    </div>
+  </div>
+
+  <h2 class="section-title">Dates that bind</h2>
+  <p class="section-note">Deadlines already fixed by a document, not forecasts.</p>
+  <div class="dates">
+    <div class="row"><span class="when">Sep 15</span><span class="what">DHS fixed-period admission rule for F, J and I visas takes effect, subject to congressional review</span></div>
+    <div class="row"><span class="when">Oct 13</span><span class="what">FCC equipment authorization rule takes effect, closing a component-part path onto the Covered List; the FCC states it is not a major rule under the Congressional Review Act</span></div>
+    <div class="row"><span class="when">Nov 3</span><span class="what">General election, including South Carolina&rsquo;s 1st Congressional District</span></div>
+    <div class="row"><span class="when">Dec 11</span><span class="what">Fiscal year 2027 appropriations under Public Law 119&ndash;103 run out</span></div>
+    <div class="row"><span class="when">Mar 1, 2027</span><span class="what">New federal-building energy standards compliance date, as stayed</span></div>
+  </div>
+
+  <h2 class="section-title">Charleston desk</h2>
+  <p class="section-note">The Lowcountry seat, from the certified record where one exists.</p>
+
+  <div class="item">
+    <p class="kicker">South Carolina&rsquo;s 1st District</p>
+    <h3>An open seat on the coast, and the only South Carolina district that behaves like a swing seat</h3>
+    <p>SC&ndash;01 has no incumbent on the ballot November 3. The general election field is Nancy Lacore
+      (Democrat), Jenny Costa Honeycutt (Republican), Bill Reeside (Libertarian) and Margo Ellis. The
+      district takes in all of Beaufort and Berkeley counties and parts of Charleston, Colleton, Dorchester
+      and Jasper.</p>
+    <p>Both nominations went to runoffs on June 23. Reporting has Honeycutt, a Charleston County Council
+      member, defeating state Representative Mark Smith 54&ndash;46, and Lacore, a former Navy admiral,
+      defeating attorney Mac Deford 52&ndash;48, on unofficial returns. Seventeen candidates ran across the
+      two primaries. The Cook Political Report rates the district R+6, and it has gone Democratic once in
+      four decades, in 2018.</p>
+    <ul class="facts">
+      <li><span class="k">June 9 primary</span><span class="v">Lacore 19,086; Deford 15,040, advancing to the Democratic runoff</span></li>
+      <li><span class="k">Runoff margins</span><span class="v">Reported on unofficial returns; check the state canvass for certified numbers</span></li>
+      <li><span class="k">Rating</span><span class="v">R+6, Cook Political Report</span></li>
+    </ul>
+    <div class="sources">
+      <span class="lbl">Sources</span>
+      <span class="tag tag-reported">Reported</span>
+      <a href="https://scvotes.gov/">Certified results, South Carolina Election Commission</a>
+      <a href="https://www.postandcourier.com/politics/south-carolina-1st-congressional-district-runoff/article_450e4fb3-bbdf-4ec6-b535-a3d7409e272d.html">Post and Courier, runoff results</a>
+      <a href="https://ballotpedia.org/South_Carolina%27s_1st_Congressional_District_election,_2026_(June_9_Democratic_primary)">Primary vote totals, Ballotpedia</a>
+    </div>
+  </div>
+
+  <h2 class="section-title">Open questions</h2>
+  <p class="section-note">Unresolved, with the specific thing that would settle each one. They stay here until it happens.</p>
+
+  <div class="item open">
+    <p class="kicker">Elections · Mail ballots</p>
+    <h3>Can the Postal Service rule on mail-in ballots take full effect before November?</h3>
+    <p>The administration asked the Supreme Court on September 6 to let it fully implement a new Postal
+      Service rule on mail-in ballots. Reporting describes the dispute as fully briefed, with a decision
+      possible at any time.</p>
+    <div class="test"><b>What would resolve it:</b> an order in United States Postal Service v. California
+      on the supremecourt.gov docket. Until that posts, nothing about the rule&rsquo;s status in November
+      is settled.</div>
+    <div class="sources">
+      <span class="lbl">Source</span>
+      <span class="tag tag-reported">Reported</span>
+      <a href="https://www.scotusblog.com/2026/09/justices-dismiss-immigration-case/">SCOTUSblog, Sept 14</a>
+    </div>
+  </div>
+
+  <div class="item open">
+    <p class="kicker">Immigration · Congressional review</p>
+    <h3>Does the visa rule&rsquo;s September 15 effective date survive congressional review?</h3>
+    <p>DHS wrote the contingency into its own rule: if the effective date changes at the conclusion of
+      congressional review, it will publish a document setting the actual date or terminating the rule.
+      As of today no such document has been identified.</p>
+    <div class="test"><b>What would resolve it:</b> a follow-up notice in the Federal Register under
+      RIN 1653&ndash;AA95, or a congressional disapproval resolution.</div>
+    <div class="sources">
+      <span class="lbl">Source</span>
+      <span class="tag tag-primary">Primary document</span>
+      <a href="https://www.federalregister.gov/">Federal Register</a>
+    </div>
+  </div>
+
+  <div class="item open">
+    <p class="kicker">Campaign finance</p>
+    <h3>Who may pay the lowest unit charge for political advertising?</h3>
+    <p>The September 4 stay decided that the Fourth Circuit acted too early, not who is entitled to the
+      rate. The FCC has yet to resolve the candidates&rsquo; application for review by order, which is the
+      step the Court identified as a condition precedent to judicial review.</p>
+    <div class="test"><b>What would resolve it:</b> an FCC order on the application for review, then a
+      properly timed petition for judicial review &mdash; or a grant of certiorari in No. 26A274.</div>
+    <div class="sources">
+      <span class="lbl">Source</span>
+      <span class="tag tag-primary">Primary document</span>
+      <a href="https://www.supremecourt.gov/opinions/25pdf/26a274_l537.pdf">Opinion on application for stay</a>
+    </div>
+  </div>
+
+  <div class="item open">
+    <p class="kicker">Which map does Missouri use?</p>
+    <h3>Missouri&rsquo;s November congressional map</h3>
+    <p>One ruling said HB 1 is not the law and enjoined its use; the Supreme Court declined to stay that on
+      September 8, then stayed a separate federal order on September 10. What map governs the November
+      election, and whether the referendum reaches the ballot, are not settled by either order.</p>
+    <div class="test"><b>What would resolve it:</b> the Eighth Circuit&rsquo;s disposition of the appeal, a
+      certiorari ruling, or a certificate of sufficiency issued by the Missouri Secretary of State.</div>
+    <div class="sources">
+      <span class="lbl">Source</span>
+      <span class="tag tag-primary">Primary document</span>
+      <a href="https://www.supremecourt.gov/orders/courtorders/091026zr_b07d.pdf">Order list, Sept 10</a>
+    </div>
+  </div>
+
+  <footer>
+    <p><b>Method.</b> Items are selected for consequence and for having a document behind them, then
+      ordered by how soon they bind. Court orders are read for what they decide, which is often
+      jurisdiction rather than the merits, and that distinction is kept in the headline. Vote tallies come
+      from the Clerk of the House and the Senate roll call record rather than from summaries of them, which
+      is why the Senate date here is August 8 and not the July date some coverage carries.</p>
+    <p>No stories are scored on a left–right axis and no issue is bundled with another. Open questions stay
+      open, with the test that would close them, instead of being resolved by tone. There is no
+      AI-generated imagery anywhere in this app, and no imagery at all.</p>
+    <p>Built for Charleston, South Carolina. Permanent home:
+      <a href="https://taylor-player-news.github.io/Political-News/">taylor-player-news.github.io/Political-News</a></p>
+  </footer>
+</div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
 </body>
 </html>
